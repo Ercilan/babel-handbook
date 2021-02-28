@@ -781,7 +781,7 @@ parser.parse(code);
 我们还能像下面这样传递选项给 `parse()` 方法：
 
 ```js
-babylon.parse(code, {
+parser.parse(code, {
   sourceType: "module", // default: "script"
   plugins: ["jsx"] // default: []
 });
@@ -962,25 +962,25 @@ t.assertBinaryExpression(maybeBinaryExpressionNode, { operator: "*" });
 
 ## <a id="toc-babel-generator"></a>[`babel-generator`](https://github.com/babel/babel/tree/master/packages/babel-generator)
 
-Babel Generator模块是 Babel 的代码生成器，它读取AST并将其转换为代码和源码映射（sourcemaps）。
+Babel Generator模块是 Babel 的代码生成器，它读取 AST 并将其转换为代码和源码映射（sourcemaps）。
 
 运行以下命令来安装它：
 
-```sh
-$ npm install --save babel-generator
+```shell
+$ npm install --save @babel/generator
 ```
 
 然后按如下方式使用：
 
 ```js
-import * as babylon from "babylon";
-import generate from "babel-generator";
+import parser from "@babel/parser";
+import generate from "@babel/generator";
 
 const code = `function square(n) {
   return n * n;
 }`;
 
-const ast = babylon.parse(code);
+const ast = parser.parse(code);
 
 generate(ast, {}, code);
 // {
@@ -1003,19 +1003,19 @@ generate(ast, {
 
 ## <a id="toc-babel-template"></a>[`babel-template`](https://github.com/babel/babel/tree/master/packages/babel-template)
 
-babel-template 是另一个虽然很小但却非常有用的模块。 它能让你编写字符串形式且带有占位符的代码来代替手动编码， 尤其是生成的大规模 AST的时候。 在计算机科学中，这种能力被称为准引用（quasiquotes）。
+babel-template 是另一个虽然很小但却非常有用的模块。 它能让你编写字符串形式且带有占位符的代码来代替手动编码， 尤其是生成的大规模 AST 的时候。 在计算机科学中，这种能力被称为准引用（quasiquotes）。
 
 ```sh
 $ npm install --save babel-template
 ```
 
 ```js
-import template from "babel-template";
-import generate from "babel-generator";
-import * as t from "babel-types";
+import template from "@babel/template";
+import generate from "@babel/generator";
+import * as t from "@babel/types";
 
 const buildRequire = template(`
-  var IMPORT_NAME = require(SOURCE);
+   var IMPORT_NAME = require(SOURCE);
 `);
 
 const ast = buildRequire({
@@ -1032,9 +1032,9 @@ var myModule = require("my-module");
 
 # <a id="toc-writing-your-first-babel-plugin"></a>编写你的第一个 Babel 插件
 
-现在你已经熟悉了 Babel 的所有基础知识了，让我们把这些知识和插件的 API融合在一起来编写第一个 Babel 插件吧。
+现在你已经熟悉了 Babel 的所有基础知识了，让我们把这些知识和插件的 API 融合在一起来编写第一个 Babel 插件吧。
 
-先从一个接收了当前`babel`对象作为参数的 [`function`](https://github.com/babel/babel/tree/master/packages/babel-core) 开始。
+先从一个接收了当前 `babel` 对象作为参数的 [`function`](https://github.com/babel/babel/tree/master/packages/babel-core) 开始。
 
 ```js
 export default function(babel) {
