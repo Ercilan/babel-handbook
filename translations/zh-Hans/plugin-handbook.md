@@ -1607,7 +1607,7 @@ FunctionDeclaration(path) {
 
 # <a id="toc-plugin-options"></a>插件选项
 
-如果您想让您的用户自定义您的Babel插件的行为您可以接受用户可以指定的插件特定选项，如下所示：
+如果您想让您的用户自定义您的 Babel 插件的行为您可以接受用户可以指定的插件特定选项，如下所示：
 
 ```js
 {
@@ -1620,9 +1620,10 @@ FunctionDeclaration(path) {
 }
 ```
 
-这些选项会通过 `状态` 对象传递给插件访问者：
+这些选项会通过 `state` 对象传递给插件访问者：
 
-<pre><code class="js">export default function({ types: t }) {
+```js
+export default function({ types: t }) {
   return {
     visitor: {
       FunctionDeclaration(path, state) {
@@ -1632,7 +1633,7 @@ FunctionDeclaration(path) {
     }
   }
 }
-`</pre> 
+```
 
 这些选项是特定于插件的，您不能访问其他插件中的选项。
 
