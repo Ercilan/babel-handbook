@@ -1350,7 +1350,7 @@ BinaryExpression(path) {
 
 如果您在顶级路径中进行子遍历，则可以使用2个提供的API方法：
 
-`path.skip()` skips traversing the children of the current path. `path.stop()` stops traversal entirely.
+`path.skip()` 会跳过遍历当前路径下的后代。`path.stop()` 则会完全停止遍历。
 
 ```js
 outerPath.traverse({
